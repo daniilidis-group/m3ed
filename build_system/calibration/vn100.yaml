@@ -1,0 +1,20 @@
+#Accelerometers
+# Accelerometer noise density. [m/s^2*1/sqrt(Hz)]
+# Datasheet: 0.14 mg/√Hz = 1.372e-3 m/s^2 * 1/sqrt(Hz)
+accelerometer_noise_density: 1.372e-3
+# Accelerometer bias random walk. [m/s^3*1/sqrt(Hz)]
+# VNav technical support: Velocity random walk (VRW):   1.4e-3 m/s^2/sqrt(Hz)
+#                         Bias Random Walk: accel : 5e-5 [m/s^3/sqrt(Hz)]
+accelerometer_random_walk: 5.0e-5
+
+#Gyroscopes
+## Gyro noise density. [rad/s*1/sqrt(Hz)]
+# Datasheet: 0.0035 °/s /√Hz  = 6.10866e-05
+gyroscope_noise_density: 6.10866e-05   #Noise density (continuous-time)
+# Gyro bias random walk. [rad/s^2*1/sqrt(Hz)]
+# VNav technical support: Angle random walk (ARW):    6.1e-5 rad/s/sqrt(Hz)
+#                         Bias Random Walk: gyro  : 4e-6 [rad/s^2/sqrt(Hz)]
+gyroscope_random_walk: 4.0e-6
+
+rostopic: /ovc/vectornav/imu  #the IMU ROS topic
+update_rate: 400.0  #Hz (for discretization of the values above)

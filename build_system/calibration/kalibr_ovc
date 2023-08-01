@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+#
+# ./kalibr_stereo_mono.bash <IMAGER_BAG> <IMU_BAG>
+#
+#
+
+IMAGER_BAG=$1
+IMU_BAG=$2
+CAMCHAIN="${IMAGER_BAG%.bag}-camchain.yaml"
+IMUCALIB="${IMU_BAG%.bag}-imu.yaml"
+IMUCAMCHAIN="${IMU_BAG%.bag}-camchain-imucam.yaml"
+
+if [ -f $IMUCAMCHAIN ]; then
+  echo "$IMUCAMCHAIN exists - please remove to rerun"
+else
+  rosrun kalibr kalibr_calibrate_imu_camera \
+        --bag $IMU_BAG --target aprilgrid.yaml \
+        --cam $CAMCHAIN --imu vn100.yaml \
+        --dont-show-report
+fi

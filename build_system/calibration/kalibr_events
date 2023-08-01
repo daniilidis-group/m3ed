@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+#
+# ./kalibr_events <IMAGER_BAG> <IMU_BAG>
+#
+#
+
+IMAGER_BAG=$1
+CAMCHAIN="${IMAGER_BAG%.bag}-camchain.yaml"
+
+
+if [ -f $CAMCHAIN ]; then
+  echo "$CAMCHAIN exists - please remove to rerun"
+else
+  rosrun kalibr kalibr_calibrate_cameras \
+        --bag $IMAGER_BAG --target aprilgrid.yaml \
+        --models pinhole-radtan pinhole-radtan \
+        --topics /prophesee/left/events /prophesee/right/events \
+        --dont-show-report
+fi

@@ -1,0 +1,34 @@
+pipeline {
+  agent {
+    docker {
+      image 'm3ed/m3ed:latest'
+      args '-v /M3ED_Build:/M3ED_Build --runtime=nvidia --gpus all'
+      label 'CPU_node'
+    }
+  }
+  parameters {
+    string(name: 'CHECKOUT_COMMIT', defaultValue: '',
+        description: 'Commit to checkout')
+    string(name: 'BAG_NAME', defaultValue: '', description: 'Input bag name')
+  }
+  options {
+    ansiColor('xterm')
+  }
+  stages {
+    stage('Checkout') {
+      steps {
+        sh "git checkout ${params.CHECKOUT_COMMIT}"
+      }
+    }
+    stage('Check GT loop error') {
+      steps {
+        sh "./build_system/lidar_depth/gt2verify.bash ${params.BAG_NAME}"
+      }
+    }
+    stage('Get Stats') {
+      steps {
+        sh "./build_system/stats_and_summary/getStats.bash ${params.BAG_NAME}"
+      }
+    }
+  }
+}

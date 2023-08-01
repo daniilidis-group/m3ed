@@ -1,0 +1,209 @@
+pipeline {
+  agent any
+  environment {
+    BAG_PATH = "/M3ED_Build/input/raw_bags"
+  }
+
+  stages {
+    //// We first build the docker image in each of the hosts by executing the M3ED-docker-build pipeline
+    //stage('Build Docker Image on Host and Test') {
+    //  steps {
+    //    script {
+    //      echo "Docker container build"
+    //      // Get list of all hosts with label 'runner'
+    //      def label = 'docker'
+    //      def nodesWithLabel = Jenkins.getInstance().getLabel(label).getNodes()
+    //      def nodeNamesWithLabel = nodesWithLabel.collect { node -> node.nodeName }
+    //      echo "Nodes with Label '${label}': ${nodeNamesWithLabel}"
+    //      for (int i =0; i < nodeNamesWithLabel.size(); i++) {
+    //        def nodeName = nodeNamesWithLabel[i]
+    //        build job: 'M3ED-docker-build', wait: true, parameters: [
+    //          string(name: 'CHECKOUT_COMMIT', value: "${env.GIT_COMMIT}")
+    //        ]
+    //      }
+    //    }
+    //  }
+    //}
+    stage('Set Files for Other Branches') {
+      // Only run when branch is not master or origin/master
+      when {
+        not {
+          expression {
+            return env.GIT_BRANCH == "origin/master"
+          }
+        }
+      }
+      steps {
+        script {
+          env.DATA_FILES = sh(script: "python3 build_system/dataset_paths.py --get_files data --short", returnStdout: true).trim()
+          env.DATA_SEMANTICS_FILES = sh(script: "python3 build_system/dataset_paths.py --get_files data_semantics --short", returnStdout: true).trim()
+          env.IMU_CALIB_FILES = sh(script: "python3 build_system/dataset_paths.py --get_files imu_calib --short", returnStdout: true).trim()
+          env.CAMERA_CALIB_FILES = sh(script: "python3 build_system/dataset_paths.py --get_files camera_calib --short", returnStdout: true).trim()
+        }
+      }
+    }
+    stage('Set Files for Master Branch') {
+      // Only run when branch is origin/master
+      when {
+        expression {
+          return env.GIT_BRANCH == "origin/master"
+        }
+      }
+      steps {
+        script {
+          env.DATA_FILES = sh(script: "python3 build_system/dataset_paths.py --get_files data", returnStdout: true).trim()
+          env.DATA_SEMANTICS_FILES = sh(script: "python3 build_system/dataset_paths.py --get_files data_semantics", returnStdout: true).trim()
+          env.IMU_CALIB_FILES = sh(script: "python3 build_system/dataset_paths.py --get_files imu_calib", returnStdout: true).trim()
+          env.CAMERA_CALIB_FILES = sh(script: "python3 build_system/dataset_paths.py --get_files camera_calib", returnStdout: true).trim()
+        }
+      }
+    }
+    stage('CPU Stage 1') {
+      steps {
+        script {
+          // Process "calib" files first, order is defined by allFiles order
+          def camera_calib_files = env.CAMERA_CALIB_FILES.split(',')
+          def imu_calib_files = env.IMU_CALIB_FILES.split(',')
+          def dataFiles = env.DATA_FILES.split(',')
+          def allFiles = [camera_calib_files, imu_calib_files, dataFiles]
+
+          echo "CPU Stage 1"
+          for (int f = 0; f < 3; f++) {
+            files = allFiles[f]
+            // Dispatch files to nodes
+            // https://www.jenkins.io/doc/pipeline/examples/#jobs-in-parallel
+            def builds = [:]
+            def statuses = [:]
+            for (int i = 0; i < files.size(); i++) {
+              def index = i
+              def file = files[index]
+              builds[file] = {
+                // Avoid issues with wait period
+                def status = build job: 'M3ED-CPU-Stage1', wait: true, parameters: [
+                  string(name: 'BAG_NAME', value: file),
+                  string(name: 'CHECKOUT_COMMIT', value: "${env.GIT_COMMIT}"),
+                  string(name: 'dummy', value: "${index}")], quietPeriod: 2
+                statuses[file]=status
+              }
+            }
+            parallel builds
+            sleep 30 // Kill issues with container
+            for (int i=0; i < files.size(); i++) {
+              def index = i
+              def file = files[index]
+              if (statuses[file].result != 'SUCCESS') {
+                error "Pipeline ${file} failed with status ${statuses[file].result}"
+              }
+            }
+          }
+        }
+      }
+    }
+    stage('Parallel') {
+      parallel {
+        stage('GPU') {
+          steps {
+            script {
+              echo "GPU"
+              def sem_files = env.DATA_SEMANTICS_FILES.split(',')
+              def par_jobs = 8
+              def num_gpu = 4
+              def N = sem_files.size()
+              def builds = [:]
+              def statuses = [:]
+
+              for (int i = 0; i < N; i+= par_jobs) {
+                builds.clear()
+                statuses.clear()
+                for (int j = i; j < i + par_jobs && j < N; j++) {
+                  def index = j
+                  def file = sem_files[index]
+                  def GPU = j % num_gpu
+                  builds[file] = {
+                    // Avoid issues with wait period
+                    def status = build job: 'M3ED-GPU', wait: true, parameters: [
+                      string(name: 'BAG_NAME', value: file),
+                      string(name: 'CHECKOUT_COMMIT', value: "${env.GIT_COMMIT}"),
+                      string(name: 'GPU_TARGET', value: "${GPU}"),
+                      string(name: 'dummy', value: "${index}")], quietPeriod: 2
+                    statuses[file]=status
+                  }
+                }
+                parallel builds
+                for (int j = i; j < i + par_jobs && j < N; j++) {
+                  def index = j
+                  def file = sem_files[index]
+                  if (statuses[file].result != 'SUCCESS') {
+                    error "Pipeline ${file} failed with status ${statuses[file].result}"
+                  }
+                }
+              }
+            }
+          }
+        }
+        stage('CPU Stage 2') {
+          steps {
+            script {
+              echo "CPU Stage 2"
+              def dataFiles = env.DATA_FILES.split(',')
+
+              def builds = [:]
+              def statuses = [:]
+              for (int i =0; i < dataFiles.size(); i++) {
+                def index = i
+                def file = files[index]
+                builds[file] = {
+                  // Avoid issues with wait period
+                  def status = build job: 'M3ED-CPU-Stage2', wait: true, parameters: [
+                    string(name: 'BAG_NAME', value: file),
+                    string(name: 'CHECKOUT_COMMIT', value: "${env.GIT_COMMIT}"),
+                    string(name: 'dummy', value: "${index}")], quietPeriod: 2
+                  statuses[file]=status
+                }
+              }
+              parallel builds
+              for (int i =0; i < files.size(); i++) {
+                def index = i
+                def file = files[index]
+                if (statuses[file].result != 'SUCCESS') {
+                  error "Pipeline ${file} failed with status ${statuses[file].result}"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    stage('CPU Stage 3') {
+      steps {
+        script {
+          echo "CPU Stage 3"
+          def dataFiles = env.DATA_FILES.split(',')
+          def builds = [:]
+          def statuses = [:]
+          for (int i =0; i < dataFiles.size(); i++) {
+            def index = i
+            def file = files[index]
+            builds[file] = {
+              // Avoid issues with wait period
+              def status = build job: 'M3ED-CPU-Stage3', wait: true, parameters: [
+                string(name: 'BAG_NAME', value: file),
+                string(name: 'CHECKOUT_COMMIT', value: "${env.GIT_COMMIT}"),
+                string(name: 'dummy', value: "${index}")], quietPeriod: 2
+              statuses[file]=status
+            }
+          }
+          parallel builds
+          for (int i =0; i < files.size(); i++) {
+            def index = i
+            def file = files[index]
+            if (statuses[file].result != 'SUCCESS') {
+              error "Pipeline ${file} failed with status ${statuses[file].result}"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

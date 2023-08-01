@@ -1,0 +1,78 @@
+pipeline {
+  agent {
+    docker {
+      image 'm3ed/m3ed:latest'
+      args '-v /M3ED_Build:/M3ED_Build --runtime=nvidia --gpus all'
+      label 'CPU_node'
+    }
+  }
+  parameters {
+    string(name: 'CHECKOUT_COMMIT', defaultValue: '',
+        description: 'Commit to checkout')
+    string(name: 'BAG_NAME', defaultValue: '', description: 'Input bag name')
+  }
+  options {
+    ansiColor('xterm')
+  }
+  stages {
+    stage('Checkout') {
+      steps {
+        sh "git checkout ${params.CHECKOUT_COMMIT}"
+      }
+    }
+    stage('Verify Bag') {
+      steps {
+        sh "./build_system/bag_processing/rosbag2verify.bash ${params.BAG_NAME}"
+      }
+    }
+    stage('Time Corrections') {
+      steps {
+        script {
+          sh "./build_system/bag_processing/rosbag2timecorrection.bash ${params.BAG_NAME}"
+        }
+      }
+    }
+    stage('Parallel 1') {
+      parallel {
+        stage('HDF5') {
+          steps {
+            sh "./build_system/bag_processing/rosbag2hdf5.bash ${params.BAG_NAME}"
+          }
+        }
+        stage('Ouster bag and Faster-LIO') {
+          when {
+            expression { !params.BAG_NAME.contains('calib') }
+          }
+          steps {
+            sh "./build_system/lidar_depth/rosbag2pcd.bash ${params.BAG_NAME}"
+          }
+        }
+        stage('Kalibr Cam') {
+          when {
+            expression { params.BAG_NAME.contains('camera_calib') }
+          }
+          steps {
+                sh "./build_system/calibration/rosbag2camcalibration.bash ${params.BAG_NAME}"
+          }
+        }
+        stage('Kalibr Imu') {
+          when {
+            expression { params.BAG_NAME.contains('imu_calib') }
+          }
+          steps {
+                sh "./build_system/calibration/rosbag2imucalibration.bash ${params.BAG_NAME}"
+          }
+        }
+      }
+    }
+
+    stage('Generate GT') {
+      when {
+        expression { !params.BAG_NAME.contains('calib') }
+      }
+      steps {
+        sh "./build_system/lidar_depth/pcd2gt.bash ${params.BAG_NAME}"
+      }
+    }
+  }
+}

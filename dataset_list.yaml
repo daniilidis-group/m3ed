@@ -1,0 +1,1099 @@
+ - file: car_forest_camera_calib_3
+   filetype: camera_calib
+
+ - file: car_forest_camera_calib_4
+   filetype: camera_calib
+
+ - file: car_forest_camera_calib_5
+   filetype: camera_calib
+
+ - file: car_forest_camera_calib_6
+   filetype: camera_calib
+
+ - file: car_forest_sand_1
+   filetype: data
+   camera_calib_reference: car_forest_camera_calib_5
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: car_forest_sand_1_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .5
+   notes: >
+     This is a driving sequence on an open space of the forest, where the car is driven
+     on a sand path and there is drift on the wheels.
+     The car returns to the original position.
+     See car_forest_sand_2 for a similar sequence.
+
+ - file: car_forest_sand_2
+   filetype: data
+   camera_calib_reference: car_forest_camera_calib_5
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: car_forest_sand_1_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: True
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: 2.0
+   notes: >
+     This is a driving sequence on an open space of the forest, where the car is driven
+     on a sand path and there is drift on the wheels.
+     The car returns to the original position.
+     See car_forest_sand_1 for a similar sequence.
+
+ - file: car_forest_tree_tunnel
+   filetype: data
+   camera_calib_reference: car_forest_camera_calib_5
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: car_forest_sand_1_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return: False
+   notes: >
+     This is a driving sequence in a narrow path in the forest, in a single
+     direction. The car does not return to the original position. The different levels of density of the
+     vegetation make it challenging for standard VIO techniques.
+
+ - file: car_forest_into_ponds_long
+   filetype: data
+   camera_calib_reference: car_forest_camera_calib_5
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: car_forest_sand_1_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return: False
+   notes: >
+     This is a driving sequence from an open road, into the forest, going through
+     ponds, to an open space in the forest. Illumination conditions are quite challenging
+     and the forest density is high. The car does not return into its original position.
+     See car_forest_into_ponds_short for a similar
+     sequence where the car returns to its original position.
+
+ - file: car_forest_into_ponds_short
+   filetype: data
+   camera_calib_reference: car_forest_camera_calib_5
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: car_forest_sand_1_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .5
+   notes: >
+     This is a driving sequence from an open road, into the forest, going through
+     ponds, to an open space in the forest. Illumination conditions are quite challenging
+     and the forest density is high. The car returns to its original position.
+     See car_forest_into_ponds_long for a longer sequence
+     where the car does not return into its original position.
+
+ - file: car_forest_camera_calib_1
+   filetype: camera_calib
+
+ - file: car_forest_camera_calib_2
+   filetype: camera_calib
+
+ - file: car_urban_day_camera_calib_3
+   filetype: camera_calib
+
+ - file: car_urban_day_camera_calib_4
+   filetype: camera_calib
+
+ - file: car_urban_day_camera_calib_5
+   filetype: camera_calib
+
+ - file: car_urban_day_camera_calib_1
+   filetype: camera_calib
+
+ - file: car_urban_day_camera_calib_2
+   filetype: camera_calib
+
+ - file: car_urban_day_city_hall
+   filetype: data
+   camera_calib_reference: car_urban_day_camera_calib_1
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: car_urban_day_city_hall_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 4
+   is_test_file: False
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: .5
+
+ - file: car_urban_day_horse
+   filetype: data
+   camera_calib_reference: car_urban_day_camera_calib_1
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: car_urban_day_city_hall_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 4
+   is_test_file: False
+   internimage_semantics: True
+   check_pose_return: False
+   notes: >
+     A very short sequence of the car moving in Philadelphia's center city. This is
+     an excellent test sequence, because it is short, has multiple IMOs. There is even a horse!
+
+ - file: car_urban_day_penno_big_loop
+   filetype: data
+   camera_calib_reference: car_urban_day_camera_calib_1
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: car_urban_day_city_hall_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: .5
+   notes: >
+     Long sequence of a car in a parking lot, without many IMOs.
+
+ - file: car_urban_day_penno_small_loop
+   filetype: data
+   camera_calib_reference: car_urban_day_camera_calib_1
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: car_urban_day_city_hall_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: .5
+
+ - file: car_urban_day_rittenhouse
+   filetype: data
+   camera_calib_reference: car_urban_day_camera_calib_1
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: car_urban_day_city_hall_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 4
+   is_test_file: False
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: 3.0
+
+ - file: car_urban_day_ucity_big_loop
+   filetype: data
+   camera_calib_reference: car_urban_day_camera_calib_1
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: car_urban_day_city_hall_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 4
+   is_test_file: True
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: 11.0
+
+ - file: car_urban_day_ucity_small_loop
+   filetype: data
+   camera_calib_reference: car_urban_day_camera_calib_1
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: car_urban_day_city_hall_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 4
+   is_test_file: False
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: .5
+
+ - file: car_urban_day_camera_calib_6
+   filetype: camera_calib
+
+ - file: car_urban_day_camera_calib_7
+   filetype: camera_calib
+
+ - file: car_urban_day_camera_calib_8
+   filetype: camera_calib
+
+ - file: car_urban_day_schuylkill_tunnel
+   filetype: data
+   camera_calib_reference: car_urban_day_camera_calib_8
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: car_urban_day_city_hall_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 4
+   is_test_file: True
+   internimage_semantics: True
+   check_pose_return: False
+   notes: >
+     A challenging and long sequence of a car driving in a highway,
+     into a tunnel.
+
+ - file: car_urban_night_camera_calib_1
+   filetype: camera_calib
+
+ - file: car_urban_night_city_hall
+   filetype: data
+   camera_calib_reference: car_urban_night_camera_calib_1
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: car_urban_day_city_hall_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 4
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .6
+
+ - file: car_urban_night_penno_big_loop
+   filetype: data
+   camera_calib_reference: car_urban_night_camera_calib_1
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: car_urban_day_city_hall_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .5
+
+ - file: car_urban_night_penno_small_loop
+   filetype: data
+   camera_calib_reference: car_urban_night_camera_calib_1
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: car_urban_day_city_hall_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .5
+
+ - file: car_urban_night_penno_small_loop_darker
+   filetype: data
+   camera_calib_reference: car_urban_night_camera_calib_1
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: car_urban_day_city_hall_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .5
+
+ - file: car_urban_night_rittenhouse
+   filetype: data
+   camera_calib_reference: car_urban_night_camera_calib_1
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: car_urban_day_city_hall_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 4
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .5
+
+ - file: car_urban_night_schuylkill_tunnel
+   filetype: data
+   camera_calib_reference: car_urban_night_camera_calib_1
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: car_urban_day_city_hall_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 4
+   is_test_file: True
+   internimage_semantics: False
+   check_pose_return: False
+   notes: >
+     A challenging and long sequence of a car driving in a highway,
+     into a tunnel.
+
+ - file: car_urban_night_ucity_big_loop
+   filetype: data
+   camera_calib_reference: car_urban_night_camera_calib_1
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: car_urban_day_city_hall_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 4
+   is_test_file: True
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: 9.0
+
+ - file: car_urban_night_ucity_small_loop
+   filetype: data
+   camera_calib_reference: car_urban_night_camera_calib_1
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: car_urban_day_city_hall_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 4
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .5
+
+ - file: falcon_forest_camera_calib_1
+   filetype: camera_calib
+
+ - file: falcon_forest_camera_calib_2
+   filetype: camera_calib
+
+ - file: falcon_forest_camera_calib_3
+   filetype: camera_calib
+
+ - file: falcon_forest_road_1
+   filetype: data
+   camera_calib_reference: falcon_forest_camera_calib_1
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_forest_road_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .2
+
+ - file: falcon_forest_camera_calib_4
+   filetype: camera_calib
+
+ - file: falcon_forest_camera_calib_5
+   filetype: camera_calib
+
+ - file: falcon_forest_road_forest
+   filetype: data
+   camera_calib_reference: falcon_forest_camera_calib_4
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_forest_road_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .2
+
+ - file: falcon_forest_up_down
+   filetype: data
+   camera_calib_reference: falcon_forest_camera_calib_4
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_forest_road_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .2
+
+ - file: falcon_forest_camera_calib_6
+   filetype: camera_calib
+
+ - file: falcon_forest_camera_calib_7
+   filetype: camera_calib
+
+ - file: falcon_forest_camera_calib_8
+   filetype: camera_calib
+
+ - file: falcon_forest_into_forest_4
+   filetype: data
+   camera_calib_reference: falcon_forest_camera_calib_6
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_forest_road_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .2
+
+ - file: falcon_forest_road_3
+   filetype: data
+   camera_calib_reference: falcon_forest_camera_calib_6
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_forest_road_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: True
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .2
+
+ - file: falcon_forest_road_2
+   filetype: data
+   camera_calib_reference: falcon_forest_camera_calib_6
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_forest_road_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .1
+
+ - file: falcon_forest_camera_calib_9
+   filetype: camera_calib
+
+ - file: falcon_forest_camera_calib_10
+   filetype: camera_calib
+
+ - file: falcon_forest_into_forest_1
+   filetype: data
+   camera_calib_reference: falcon_forest_camera_calib_6
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_forest_road_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .2
+   notes: >
+     This is a sequence of the UAV flying in a low density forest. The UAV returns
+     to its takeoff position. Similar to falcon_forest_into_forest_2.
+
+ - file: falcon_forest_into_forest_2
+   filetype: data
+   camera_calib_reference: falcon_forest_camera_calib_6
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_forest_road_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .2
+   notes: >
+     This is a sequence of the UAV flying in a low density forest. The UAV returns
+     to its takeoff position.
+     Similar to falcon_forest_into_forest_1.
+
+
+ - file: falcon_into_forest_3
+   filetype: data
+   camera_calib_reference: falcon_forest_camera_calib_6
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_forest_road_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: True
+   internimage_semantics: False
+   check_pose_return: False
+   notes: >
+     This is a short sequence with the UAV flying along the road in the forest.
+     The sequence is ended before the UAV landed due to technical issues, so the
+     UAV does not return to its original position.
+
+
+ - file: falcon_indoor_camera_calib
+   filetype: camera_calib
+
+ - file: falcon_indoor_flight_1
+   filetype: data
+   camera_calib_reference: falcon_indoor_camera_calib
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_indoor_flight_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 100
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .1
+   notes:
+     A short indoor sequence where the UAV flies in an area with multiple
+     obstacles. The UAV returns close to its original position.
+     See falcon_indoor_flight_2 and falcon_indoor_flight_3 for similar
+     sequences.
+
+
+ - file: falcon_indoor_flight_2
+   filetype: data
+   camera_calib_reference: falcon_outdoor_night_camera_calib_2
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_indoor_flight_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 100
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .2
+   notes:
+     A short indoor sequence where the UAV flies in an area with multiple
+     obstacles. The UAV returns close to its original position.
+     See falcon_indoor_flight_1 and falcon_indoor_flight_3 for similar
+     sequences.
+
+ - file: falcon_indoor_flight_3
+   filetype: data
+   camera_calib_reference: falcon_outdoor_night_camera_calib_2
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_indoor_flight_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 100
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .3
+   notes:
+     A short indoor sequence where the UAV flies in an area with multiple
+     obstacles. The UAV returns close to its original position.
+     See falcon_indoor_flight_1 and falcon_indoor_flight_2 for similar
+     sequences.
+
+ - file: falcon_outdoor_day_penno_parking_1
+   filetype: data
+   camera_calib_reference: falcon_outdoor_day_camera_calib_1
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_outdoor_day_penno_parking_1_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: .25
+
+ - file: falcon_outdoor_day_penno_parking_2
+   filetype: data
+   camera_calib_reference: falcon_outdoor_day_camera_calib_1
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_outdoor_day_penno_parking_1_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: .1
+
+ - file: falcon_outdoor_day_penno_plaza
+   filetype: data
+   camera_calib_reference: falcon_outdoor_day_camera_calib_1
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_outdoor_day_penno_parking_1_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 4
+   is_test_file: False
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: .1
+
+ - file: falcon_outdoor_day_camera_calib_1
+   filetype: camera_calib
+
+ - file: falcon_outdoor_day_penno_cars
+   filetype: data
+   camera_calib_reference: falcon_outdoor_day_camera_calib_1
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_outdoor_day_penno_cars_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 4
+   is_test_file: False
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: .1
+
+ - file: falcon_outdoor_day_penno_parking_3
+   filetype: data
+   camera_calib_reference: falcon_outdoor_day_camera_calib_1
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_outdoor_day_penno_cars_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: True
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: .25
+
+ - file: falcon_outdoor_day_penno_trees
+   filetype: data
+   camera_calib_reference: falcon_outdoor_day_camera_calib_1
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_outdoor_day_penno_cars_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 4
+   is_test_file: False
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: .5
+
+ - file: falcon_outdoor_day_camera_calib_2
+   filetype: camera_calib
+
+ - file: falcon_outdoor_day_camera_calib_3
+   filetype: camera_calib
+
+ - file: falcon_outdoor_day_fast_flight_1
+   filetype: data
+   camera_calib_reference: falcon_outdoor_day_camera_calib_2
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_outdoor_day_fast_flight_1_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 50
+   is_test_file: False
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: .1
+
+ - file: falcon_outdoor_day_fast_flight_3
+   filetype: data
+   camera_calib_reference: falcon_outdoor_day_camera_calib_2
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_outdoor_day_fast_flight_3_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 50
+   is_test_file: True
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: .1
+
+ - file: falcon_outdoor_day_fast_flight_2
+   filetype: data
+   camera_calib_reference: falcon_outdoor_day_camera_calib_2
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_outdoor_day_fast_flight_2_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 50
+   is_test_file: False
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: .1
+
+ - file: falcon_outdoor_night_camera_calib_1
+   filetype: camera_calib
+
+ - file: falcon_outdoor_night_camera_calib_2
+   filetype: camera_calib
+
+ - file: falcon_outdoor_night_penno_parking_1
+   filetype: data
+   camera_calib_reference: falcon_outdoor_night_camera_calib_2
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_indoor_flight_1_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 50
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .1
+
+ - file: falcon_outdoor_night_penno_parking_2
+   filetype: data
+   camera_calib_reference: falcon_outdoor_night_camera_calib_2
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_indoor_flight_1_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 50
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .2
+
+ - file: falcon_outdoor_night_high_beams
+   filetype: data
+   camera_calib_reference: falcon_outdoor_night_camera_calib_2
+   imu_calib_reference: falcon_imu_calib_1
+   lidar_calib_reference: falcon_indoor_flight_1_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 4
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .1
+   notes: >
+     This is a short sequence where the UAV flies in a parking lot, in front
+     of a car with the high beams enabled. This sequence showcases the advantages
+     of event cameras compared to traditional imagers.
+
+ - file: spot_forest_camera_calib_1
+   filetype: camera_calib
+
+ - file: spot_forest_camera_calib_2
+   filetype: camera_calib
+
+ - file: spot_forest_camera_calib_3
+   filetype: camera_calib
+
+ - file: spot_forest_easy_1
+   filetype: data
+   camera_calib_reference: spot_forest_camera_calib_3
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: spot_forest_easy_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .6
+   notes: >
+     An easy sequence of spot walking in the forest between the trees.
+
+ - file: spot_forest_easy_2
+   filetype: data
+   camera_calib_reference: spot_forest_camera_calib_3
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: spot_forest_easy_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .2
+
+ - file: spot_forest_hard
+   filetype: data
+   camera_calib_reference: spot_forest_camera_calib_3
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: spot_forest_easy_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .6
+
+ - file: spot_forest_road_1
+   filetype: data
+   camera_calib_reference: spot_forest_camera_calib_1
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: spot_forest_easy_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: 1.1
+   notes: >
+     This is an easy sequence of spot in the forest, walking on a dirt road.
+     The robot returns to its original position. Similar to spot_forest_road_2 and
+     spot_forest_road_3.
+
+ - file: spot_forest_road_2
+   filetype: data
+   camera_calib_reference: spot_forest_camera_calib_1
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: spot_forest_easy_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: True
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: 1.4
+   notes: >
+     This is an easy sequence of spot in the forest, walking on a dirt road.
+     The robot returns close to its original position but not exactly
+     on the same spot (1.5m), so this sequence is not recommended
+     for VIO or loop closure. Similar to spoot_forest_road_1 and spot_forest_road_3.
+
+ - file: spot_forest_road_3
+   filetype: data
+   camera_calib_reference: spot_forest_camera_calib_1
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: spot_forest_easy_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .75
+   notes: >
+     This is an easy sequence of spot in the forest, walking on a dirt road.
+     The robot returns to its original position. Similar to spot_forest_road_1 and
+     spot_forest_road_2.
+
+ - file: spot_indoor_camera_calib
+   filetype: camera_calib
+
+ - file: spot_indoor_building_loop
+   filetype: data
+   camera_calib_reference: spot_indoor_camera_calib
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: spot_indoor_stairs_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .1
+
+ - file: spot_indoor_obstacles
+   filetype: data
+   camera_calib_reference: spot_indoor_camera_calib
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: spot_indoor_stairs_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .1
+
+ - file: spot_indoor_stairs
+   filetype: data
+   camera_calib_reference: spot_indoor_camera_calib
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: spot_indoor_stairs_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 4
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .4
+
+ - file: spot_indoor_stairwell
+   filetype: data
+   camera_calib_reference: spot_indoor_camera_calib
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: spot_indoor_stairs_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return: False
+   notes: >
+     This is a complex sequence where spot is driven inside a stairwell, very
+     close to the walls. This pose cannot get verified, as spot does not
+     return to the starting pose. This sequence is very challenging for VIO
+     systems, as there are not many features on the stairwell steps.
+
+ - file: spot_outdoor_day_camera_calib_1
+   filetype: camera_calib
+
+ - file: spot_outdoor_day_camera_calib_2
+   filetype: camera_calib
+
+ - file: spot_outdoor_day_camera_calib_3
+   filetype: camera_calib
+
+ - file: spot_outdoor_day_art_plaza_loop
+   filetype: data
+   camera_calib_reference: spot_outdoor_day_camera_calib_3
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: spot_outdoor_day_skatepark_1_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: .1
+
+ - file: spot_outdoor_day_srt_green_loop
+   filetype: data
+   camera_calib_reference: spot_outdoor_day_camera_calib_1
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: spot_outdoor_day_skatepark_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: 1.2
+   notes: >
+     This is a short easy sequence of spot walking on a paved road and grass.
+     The robot returns to a position close to the starting point
+     but not exactly the same (1.2 m), so this sequence is not recommended
+     for VIO or loop closure.
+
+ - file: spot_outdoor_day_skatepark_1
+   filetype: data
+   camera_calib_reference: spot_outdoor_day_camera_calib_3
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: spot_outdoor_day_skatepark_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 4
+   is_test_file: False
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: .1
+
+ - file: spot_outdoor_day_skatepark_2
+   filetype: data
+   camera_calib_reference: spot_outdoor_day_camera_calib_3
+   imu_calib_reference: tower_imu_calib_1
+   faster_lio_config: short_range_ouster64
+   lidar_calib_reference: spot_outdoor_day_skatepark_1_T_c_l.npz
+   depth_scan_aggregation: 4
+   is_test_file: False
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: .1
+
+ - file: spot_outdoor_day_skatepark_3
+   filetype: data
+   camera_calib_reference: spot_outdoor_day_camera_calib_3
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: spot_outdoor_day_skatepark_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 4
+   is_test_file: True
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: .25
+
+ - file: spot_outdoor_day_rocky_steps
+   filetype: data
+   camera_calib_reference: spot_outdoor_day_camera_calib_3
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: spot_outdoor_day_skatepark_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 4
+   is_test_file: False
+   internimage_semantics: True
+   check_pose_return: False
+
+ - file: spot_outdoor_day_srt_under_bridge_1
+   filetype: data
+   camera_calib_reference: spot_outdoor_day_camera_calib_3
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: spot_outdoor_day_skatepark_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 4
+   is_test_file: False
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: .1
+
+ - file: spot_outdoor_day_srt_under_bridge_2
+   filetype: data
+   camera_calib_reference: spot_outdoor_day_camera_calib_3
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: spot_outdoor_day_skatepark_1_T_c_l.npz
+   faster_lio_config: short_range_ouster64
+   depth_scan_aggregation: 4
+   is_test_file: False
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: .1
+
+ - file: spot_outdoor_day_penno_building_loop
+   filetype: data
+   camera_calib_reference: spot_indoor_camera_calib
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: spot_outdoor_day_skatepark_1_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: True
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: .1
+
+ - file: spot_outdoor_day_penno_short_loop
+   filetype: data
+   camera_calib_reference: spot_indoor_camera_calib
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: spot_outdoor_day_skatepark_1_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 400
+   is_test_file: False
+   internimage_semantics: True
+   check_pose_return:
+    absolute_position_error: .1
+
+ - file: spot_outdoor_night_camera_calib_2
+   filetype: camera_calib
+
+ - file: spot_outdoor_night_camera_calib_1
+   filetype: camera_calib
+
+ - file: spot_outdoor_night_penno_building_loop
+   filetype: data
+   camera_calib_reference: spot_outdoor_night_camera_calib_2
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: spot_outdoor_day_skatepark_1_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: True
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .1
+
+ - file: spot_outdoor_night_penno_plaza_lights
+   filetype: data
+   camera_calib_reference: spot_outdoor_night_camera_calib_2
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: spot_outdoor_day_skatepark_1_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .1
+
+ - file: spot_outdoor_night_penno_short_loop
+   filetype: data
+   camera_calib_reference: spot_outdoor_night_camera_calib_2
+   imu_calib_reference: tower_imu_calib_1
+   lidar_calib_reference: spot_outdoor_day_skatepark_1_T_c_l.npz
+   faster_lio_config: long_range_ouster64
+   depth_scan_aggregation: 40
+   is_test_file: False
+   internimage_semantics: False
+   check_pose_return:
+    absolute_position_error: .5
+
+ - file: tower_imu_calib_1
+   filetype: imu_calib
+   camera_calib_reference: spot_outdoor_night_camera_calib_2
+
+ - file: tower_imu_calib_2
+   filetype: imu_calib
+   camera_calib_reference: spot_outdoor_night_camera_calib_2
+
+ - file: falcon_imu_calib_1
+   filetype: imu_calib
+   camera_calib_reference: falcon_outdoor_day_camera_calib_1
+
+ - file: falcon_imu_calib_2
+   filetype: imu_calib
+   camera_calib_reference: falcon_outdoor_day_camera_calib_1
+
+ - file: falcon_imu_calib_3
+   filetype: imu_calib
+   camera_calib_reference: falcon_outdoor_day_camera_calib_1
+
+ - file: tower_lidar_calib_icp_2
+   filetype: lidar_calib
+
+ - file: tower_lidar_calib_light_icp_1
+   filetype: lidar_calib
+
+ - file: tower_lidar_calib_light_icp_2
+   filetype: lidar_calib
+
+ - file: tower_lidar_calib_light_icp_3
+   filetype: lidar_calib
+
+ - file: tower_lidar_calib_light_matlab_big_1
+   filetype: lidar_calib
+
+ - file: tower_lidar_calib_light_matlab_big_2
+   filetype: lidar_calib
+
+ - file: tower_lidar_calib_light_matlab_small_1
+   filetype: lidar_calib
+
+ - file: tower_lidar_calib_light_matlab_small_2
+   filetype: lidar_calib
+
+ - file: tower_lidar_calib_light_moving_icp_1
+   filetype: lidar_calib
+
+ - file: tower_lidar_calib_matlab_large_1
+   filetype: lidar_calib
+
+ - file: tower_lidar_calib_matlab_large_2
+   filetype: lidar_calib
+
+ - file: falcon_lidar_calib_icp_1
+   filetype: lidar_calib
+
+ - file: falcon_lidar_calib_icp_2
+   filetype: lidar_calib
+
+ - file: falcon_lidar_calib_icp_3
+   filetype: lidar_calib
+
+ - file: falcon_lidar_calib_icp_move_1
+   filetype: lidar_calib
+
+ - file: falcon_lidar_calib_matlab_large_1
+   filetype: lidar_calib
+
+ - file: falcon_lidar_calib_matlab_large_2
+   filetype: lidar_calib
+
+ - file: falcon_lidar_calib_matlab_small_1
+   filetype: lidar_calib
+
+ - file: falcon_lidar_calib_matlab_small_2
+   filetype: lidar_calib

@@ -1,0 +1,40 @@
+def user_id
+def user_name
+node {
+  user_id = sh(returnStdout: true, script: 'id -u').trim()
+  user_name = sh(returnStdout: true, script: 'whoami').trim()
+}
+
+pipeline {
+  agent {
+    dockerfile {
+      dir 'build_system/docker'
+      additionalBuildArgs "--build-arg user_id=${user_id} --build-arg user_name=${user_name} -t m3ed/m3ed:latest"
+      args '-v /M3ED_Build:/M3ED_Build --runtime=nvidia --gpus all'
+
+    }
+  }
+  parameters {
+    string(name: 'CHECKOUT_COMMIT', defaultValue: '',
+        description: 'Commit to checkout')
+  }
+  options {
+    ansiColor('xterm')
+  }
+  stages {
+    stage('Checkout') {
+      steps {
+        sh "git checkout ${params.CHECKOUT_COMMIT}"
+      }
+    }
+    stage ('Check System') {
+      steps {
+        script {
+          def hash = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+          def branch = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+          sh "./build_system/docker/docker_checks.sh ${hash} ${branch}"
+        }
+      }
+    }
+  }
+}

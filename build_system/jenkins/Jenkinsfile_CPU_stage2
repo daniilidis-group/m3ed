@@ -1,0 +1,45 @@
+pipeline {
+  agent {
+    docker {
+      image 'm3ed/m3ed:latest'
+      args '-v /M3ED_Build:/M3ED_Build --runtime=nvidia --gpus all'
+      label 'CPU_node'
+    }
+  }
+  parameters {
+    string(name: 'CHECKOUT_COMMIT', defaultValue: '',
+        description: 'Commit to checkout')
+    string(name: 'BAG_NAME', defaultValue: '', description: 'Input bag name')
+  }
+  options {
+    ansiColor('xterm')
+  }
+  stages {
+    stage('Checkout') {
+      steps {
+        sh "git checkout ${params.CHECKOUT_COMMIT}"
+      }
+    }
+    stage('Parallel 1') {
+      parallel {
+        stage('Image Videos') {
+          when {
+            expression { !params.BAG_NAME.contains('calib') }
+          }
+          steps {
+            sh "./build_system/bag_processing/hdf52media.bash ${params.BAG_NAME}"
+          }
+        }
+        stage('Depth Video') {
+          when {
+            expression { !params.BAG_NAME.contains('calib') }
+          }
+          steps {
+            sh "./build_system/lidar_depth/gt2media.bash ${params.BAG_NAME}"
+          }
+        }
+      }
+    }
+
+  }
+}

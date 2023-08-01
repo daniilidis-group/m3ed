@@ -1,0 +1,35 @@
+pipeline {
+  agent {
+    docker {
+      image 'm3ed/m3ed:latest'
+      args '-v /M3ED_Build:/M3ED_Build --runtime=nvidia --gpus all'
+      label 'GPU_node'
+    }
+  }
+  parameters {
+    string(name: 'CHECKOUT_COMMIT', defaultValue: '', description: 'Commit to checkout')
+    string(name: 'BAG_NAME', defaultValue: '', description: 'Input bag name')
+    string(name: 'GPU_TARGET', defaultValue: '', description: 'GPU to run the code')
+  }
+  options {
+    ansiColor('xterm')
+  }
+  stages {
+    stage('Checkout') {
+      steps {
+        sh "git checkout ${params.CHECKOUT_COMMIT}"
+      }
+    }
+    stage ('InternImage') {
+      steps {
+        echo "GPU_TARGET: ${params.GPU_TARGET}"
+        sh "./build_system/semantics/hdf52internimage.bash ${params.BAG_NAME} ${params.GPU_TARGET}"
+      }
+    }
+    stage('Semantics Video') {
+      steps {
+        sh "./build_system/semantics/internimage2media.bash ${params.BAG_NAME}"
+      }
+    }
+  }
+}
