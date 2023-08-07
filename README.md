@@ -2,6 +2,13 @@
 
 # M3ED
 
+## Intro
+
+M3ED provides high-quality synchronized and labeled data from multiple platforms, including wheeled ground vehicles, legged robots, and aerial robots, operating in challenging conditions such as driving along off-road trails, navigating through dense forests, and executing aggressive flight maneuvers.
+
+M3ED processed data, raw data, and code are available to
+[download](https://m3ed.io/download/). For more information about our dataset,
+please visit [https://m3ed.io](https://m3ed.io/).
 
 ## Sample Loading
 
