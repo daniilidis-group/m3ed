@@ -66,7 +66,7 @@ class DataFile:
         if self.is_test:
             self.env['h5_path'] = self.env['test_output_path'] / (name + "_data.h5")
             self.env['is_test'] = 1
-            self.env['stripped_h5_path'] = self.env['output_path'] / (name + ".h5")
+            self.env['stripped_h5_path'] = self.env['output_path'] / (name + "._data_h5")
         else:
             self.env['h5_path'] = self.env['output_path'] / (name + "_data.h5")
             self.env['is_test'] = 0
