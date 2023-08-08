@@ -1,3 +1,6 @@
 utils/
 __pycache__
 Log/
+
+tools/dataset_lists.yaml
+tools/output
