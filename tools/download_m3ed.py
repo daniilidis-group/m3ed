@@ -119,7 +119,7 @@ if __name__ == "__main__":
                         help="Path to dataset_lists.yaml. " +
                         "If not provided, it will be downloaded " +
                         "from the repository")
-    parser.add_argument("--output_dir", required=False,
+    parser.add_argument("--output_dir", required=False, default="output",
                         help="Output directory to download the data")
     parser.add_argument("--no_download", action="store_true",
                         help="Do not download the data, " +
@@ -129,6 +129,9 @@ if __name__ == "__main__":
     # Check arguments
     if args.output_dir is None:
         output_dir = "output"
+    else:
+        output_dir = args.output_dir
+
     if args.vehicle is None:
         vehicles = ["car", "falcon", "spot"]
     elif args.vehicle in ["car", "falcon", "spot"]:
@@ -164,7 +167,7 @@ if __name__ == "__main__":
 
     # Check if output directory exists or create it
     if not os.path.exists(output_dir):
-        output_dir = os.makedirs(output_dir)
+        os.makedirs(output_dir)
 
     # if yaml file is not provided or it does not exist, download it
     if args.yaml is None:
