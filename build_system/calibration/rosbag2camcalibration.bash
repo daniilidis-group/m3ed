@@ -18,7 +18,7 @@ TMP_BAG="$TMP_PATH/calibration.bag"
 rosrun event_bag_convert event_bag_converter -i "$BAG_PATH" -o "$TMP_BAG" -t "$TIME_CORRECTIONS_PATH" -c 30 -d 5
 
 # Run the calibration script
-./calibration/kalibr_all "$TMP_BAG" "./calibration/aprilgrid.yaml"
+./build_system/calibration/kalibr_all "$TMP_BAG" "./build_system/calibration/aprilgrid.yaml"
 
 # Move the result to the ouptut folder
 CAMCHAIN_TMP="${TMP_BAG%.bag}-camchain.yaml"
