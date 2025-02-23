@@ -25,11 +25,11 @@ pipeline {
     //  }
     //}
     stage('Set Files for Other Branches') {
-      // Only run when branch is not master or origin/master
+      // Only run when branch is not main or origin/main
       when {
         not {
           expression {
-            return env.GIT_BRANCH == "origin/master"
+            return env.GIT_BRANCH == "origin/main"
           }
         }
       }
@@ -42,11 +42,11 @@ pipeline {
         }
       }
     }
-    stage('Set Files for Master Branch') {
-      // Only run when branch is origin/master
+    stage('Set Files for main Branch') {
+      // Only run when branch is origin/main
       when {
         expression {
-          return env.GIT_BRANCH == "origin/master"
+          return env.GIT_BRANCH == "origin/main"
         }
       }
       steps {
