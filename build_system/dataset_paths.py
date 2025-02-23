@@ -163,6 +163,7 @@ class DataRecording(DataFile):
         self.env["pcd_local_path"] = out_path / "local_scans"
         self.env["traj_path"] = self.env["tmp_path"] / (self.name + ".traj")
         self.env["gt_pose_path"] = out_path / (self.name + "_pose_gt.h5")
+        self.env["gt_pose_evo_path"] = out_path / (self.name + "_pose_evo_gt.txt")
         self.env["gt_depth_path"] = out_path / (self.name + "_depth_gt.h5")
         self.env["depth_video_raw"] = out_path / (self.name + "_depth_gt.avi")
         self.env["depth_events_video_raw"] = out_path / (

@@ -25,6 +25,11 @@ pipeline {
         sh "./build_system/lidar_depth/gt2verify.bash ${params.BAG_NAME}"
       }
     }
+    stage('Convert GT to EVO format') {
+      steps {
+        sh "./build_system/lidar_depth/gt2evo.bash ${params.BAG_NAME}"
+      }
+    }
     stage('Get Stats') {
       steps {
         sh "./build_system/stats_and_summary/getStats.bash ${params.BAG_NAME}"
