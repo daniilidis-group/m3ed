@@ -71,9 +71,7 @@ class DataFile:
         if self.is_test:
             self.env["h5_path"] = self.env["test_output_path"] / (name + "_data.h5")
             self.env["is_test"] = 1
-            self.env["stripped_h5_path"] = self.env["output_path"] / (
-                name + "._data_h5"
-            )
+            self.env["stripped_h5_path"] = self.env["output_path"] / (name + "_data.h5")
         else:
             self.env["h5_path"] = self.env["output_path"] / (name + "_data.h5")
             self.env["is_test"] = 0
@@ -83,7 +81,13 @@ class DataFile:
         self.env["events_video_raw"] = self.env["output_path"] / (
             name + "_events_gray.avi"
         )
-        self.env["rgb_video_raw"] = self.env["output_path"] / (name + "_rgb.avi")
+        # RGB video will not be published for test sequences
+        if self.is_test:
+            self.env["rgb_video_raw"] = self.env["test_output_path"] / (
+                name + "_rgb.avi"
+            )
+        else:
+            self.env["rgb_video_raw"] = self.env["output_path"] / (name + "_rgb.avi")
 
     def fileExists(self):
         if not self.env["bag_path"].exists():
