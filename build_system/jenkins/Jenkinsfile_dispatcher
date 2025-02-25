@@ -106,7 +106,7 @@ pipeline {
             script {
               echo "GPU"
               def sem_files = env.DATA_SEMANTICS_FILES.split(',')
-              def par_jobs = 8
+              def par_jobs = 16
               def num_gpu = 4
               def N = sem_files.size()
               def builds = [:]
