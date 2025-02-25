@@ -12,8 +12,9 @@ DATASET_LIST_PATH = "dataset_list.yaml"
 
 # List of all paths used in the pipeline
 INPUT_FOLDER_PATH = Path("/M3ED_Build/input")
+TEST_INPUT_FOLDER_PATH = Path("/M3ED_Build/test_input")
 BAG_FOLDER_PATH = INPUT_FOLDER_PATH / "raw_bags"
-TEST_BAG_FOLDER_PATH = INPUT_FOLDER_PATH / "raw_test_bags"
+TEST_BAG_FOLDER_PATH = TEST_INPUT_FOLDER_PATH / "raw_test_bags"
 LIDAR_CALIB_FOLDER_PATH = INPUT_FOLDER_PATH / "lidar_calibrations"
 TMP_FOLDER_PATH = Path("/M3ED_Build/tmp")
 OUTPUT_FOLDER_PATH = Path("/M3ED_Build/output")
