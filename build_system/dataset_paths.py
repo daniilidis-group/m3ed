@@ -165,7 +165,10 @@ class DataRecording(DataFile):
             out_path = self.env["output_path"]
 
         self.env["pcd_global_path"] = out_path / (self.name + "_global.pcd")
-        self.env["pcd_local_path"] = out_path / "local_scans"
+        self.env["pcd_local_path"] = self.env["tmp_path"] / "local_scans"
+        self.env["pcd_local_path_compressed"] = out_path / (
+            self.name + "_local_scans.tbz2"
+        )
         self.env["traj_path"] = self.env["tmp_path"] / (self.name + ".traj")
         self.env["gt_pose_path"] = out_path / (self.name + "_pose_gt.h5")
         self.env["gt_pose_evo_path"] = out_path / (self.name + "_pose_evo_gt.txt")

@@ -8,7 +8,7 @@ if [[ "$BAG_NAME" == *"calib"* ]]; then
 fi
 
 # output_files includes TRAJ_PATH, PCD_LOCAL_PATH, and GT_PATH
-output_files=("$TRAJ_PATH" "$PCD_LOCAL_PATH" "$PCD_GLOBAL_PATH")
+output_files=("$TRAJ_PATH" "$PCD_LOCAL_PATH" "$PCD_GLOBAL_PATH" "$PCD_LOCAL_PATH_COMPRESSED")
 check_files output_files
 
 check_free_space fixed
@@ -72,3 +72,15 @@ roscd concatenate_pcd_uncompressed
 rosrun concatenate_pcd_uncompressed concatenate_pcd_uncompressed "$PCD_LOCAL_PATH"/*.pcd
 chmod 666 output.pcd
 mv output.pcd "$PCD_GLOBAL_PATH" 
+
+# Compress local PCDs into a zip file
+echo -e "${BLUE}Compressing local PCs${NC}"
+PCD_LOCAL_PATH_COMPRESSED_TMP="${PCD_LOCAL_PATH_COMPRESSED%.*}_tmp.${PCD_LOCAL_PATH_COMPRESSED##*.}"
+tar cjf "$PCD_LOCAL_PATH_COMPRESSED_TMP" "$PCD_LOCAL_PATH"
+if [ $? -ne 0 ]; then
+  echo -e "${RED}Error compressing local PCs${NC}"
+  exit 1
+fi
+echo -e "${GREEN}Compressing local PCs done${NC}"
+chmod 666 "$PCD_LOCAL_PATH_COMPRESSED_TMP"
+mv "$PCD_LOCAL_PATH_COMPRESSED_TMP" "$PCD_LOCAL_PATH_COMPRESSED"
