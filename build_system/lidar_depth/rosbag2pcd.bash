@@ -76,7 +76,7 @@ mv output.pcd "$PCD_GLOBAL_PATH"
 # Compress local PCDs into a zip file
 echo -e "${BLUE}Compressing local PCs${NC}"
 PCD_LOCAL_PATH_COMPRESSED_TMP="${PCD_LOCAL_PATH_COMPRESSED%.*}_tmp.${PCD_LOCAL_PATH_COMPRESSED##*.}"
-tar cjf "$PCD_LOCAL_PATH_COMPRESSED_TMP" "$PCD_LOCAL_PATH"
+tar cjf "$PCD_LOCAL_PATH_COMPRESSED_TMP" -C "$PCD_LOCAL_PATH" .
 if [ $? -ne 0 ]; then
   echo -e "${RED}Error compressing local PCs${NC}"
   exit 1
