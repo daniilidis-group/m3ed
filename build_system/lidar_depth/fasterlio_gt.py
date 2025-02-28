@@ -127,7 +127,7 @@ def create_h5(h5fn, flio_trajectory, Cn_T_lidar, topic):
     lidar_trajectory = h5file.create_dataset("Ln_T_L0", (number_samples,4,4), dtype='f8')
     cam_trajectory = h5file.create_dataset("Cn_T_C0", (number_samples,4,4), dtype='f8')
     h5file.attrs['cam_name'] = topic
-    times = h5file.create_dataset("ts", (number_samples,), dtype='f8')
+    times = h5file.create_dataset("ts", (number_samples,), dtype='i8')
 
     for i, ft in enumerate(flio_trajectory):
         lidar_trajectory[i] = ft['Ln_T_L0']
